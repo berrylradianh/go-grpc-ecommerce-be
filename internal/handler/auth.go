@@ -32,6 +32,25 @@ func (ah *authHandler) Register(ctx context.Context, request *auth.RegisterReque
 	return res, nil
 }
 
+func (ah *authHandler) Logout(ctx context.Context, request *auth.LogoutRequest) (*auth.LogoutResponse, error) {
+	validationErrors, err := utils.CheckValidation(request)
+	if err != nil {
+		return nil, err
+	}
+	if validationErrors != nil {
+		return &auth.LogoutResponse{
+			Base: utils.ValidationErrorResponse(validationErrors),
+		}, nil
+	}
+
+	res, err := ah.authService.Logout(ctx, request)
+	if err != nil {
+		return nil, err
+	}
+
+	return res, nil
+}
+
 func (ah *authHandler) Login(ctx context.Context, request *auth.LoginRequest) (*auth.LoginResponse, error) {
 	validationErrors, err := utils.CheckValidation(request)
 	if err != nil {

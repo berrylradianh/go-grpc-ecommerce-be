@@ -10,6 +10,7 @@ option go_package = "github.com/berrylradianh/go-grpc-ecommerce-be/pb/auth";
 service AuthService {
     rpc Register(RegisterRequest) returns (RegisterResponse);
     rpc Login(LoginRequest) returns (LoginResponse);
+    rpc Logout(LogoutRequest) returns (LogoutResponse);
 }
 
 message RegisterRequest {
@@ -33,3 +34,8 @@ message LoginResponse {
     string access_token = 2;
 }
 
+message LogoutRequest {}
+
+message LogoutResponse {
+    common.BaseResponse base = 1;
+}
